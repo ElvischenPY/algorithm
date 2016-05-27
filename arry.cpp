@@ -10,7 +10,7 @@ int main(int argc, char const *argv[])
 	/* code */
 	int arry[] = {5 , 1 , 0 , 1 , 7 , 9 , 1 , 0};
 	int length=sizeof(arry)/sizeof(int);
-#if 0
+#if 1
 	int a = 3 ,b = 5 ,c=0;
 
 	cout<<a<<"\t\t"<<b<<"\t\t"<<c<<endl;
@@ -21,12 +21,25 @@ int main(int argc, char const *argv[])
 	a = a^b;
 	cout<<a<<"\t\t"<<b<<"\t\t"<<c<<endl;
 
+cout<<"\n==========================="<<endl;
+	a = 3;
+	b = 5;
 	cout<<a<<"\t\t"<<b<<"\t\t"<<c<<endl;
 	a = b+a - ( b=a );
 	cout<<a<<"\t\t"<<b<<"\t\t"<<c<<endl;
-	c = (b = a);
+	//c = (b = a);
+	//cout<<a<<"\t\t"<<b<<"\t\t"<<c<<endl;
+
+	a = 3;
+	b = 5;
 	cout<<a<<"\t\t"<<b<<"\t\t"<<c<<endl;
+	a = a - ( b=a ) + b;
+	cout<<a<<"\t\t"<<b<<"\t\t"<<c<<endl;
+	cout<<"==========================="<<endl;
+
 	cout<<endl;
+
+
 #endif
 
 	output(arry,length);

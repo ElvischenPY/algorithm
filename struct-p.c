@@ -28,7 +28,7 @@ struct fts_Upgrade_Info
 	 u16 delay_readid;					/*delay of read id */
 	 u16 delay_erase_flash; 				/*delay of earse flash*/
 };
-struct  fts_Upgrade_Info fts_updateinfo_curr;
+const  struct  fts_Upgrade_Info fts_updateinfo_curr;
 
  struct fts_Upgrade_Info fts_updateinfo[] =
 {
@@ -55,34 +55,36 @@ void fts_get_upgrade_array(void)
 	u32 i;
 	int ret = 0;
 
+  struct  fts_Upgrade_Info fts_updateinfo_curr_1;
 	printf("%s chip_id = %x\n", __func__, chip_id);
 
 	chip_id = 0x54;
-	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr.CHIP_ID);
+	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr->CHIP_ID);
 	for(i=0;i<sizeof(fts_updateinfo)/sizeof(struct fts_Upgrade_Info);i++){
 		if(chip_id==fts_updateinfo[i].CHIP_ID){
-			memcpy(&fts_updateinfo_curr, &fts_updateinfo[i], sizeof(struct fts_Upgrade_Info));
+			memcpy(&fts_updateinfo_curr_1, &fts_updateinfo[i], sizeof(struct fts_Upgrade_Info));
+			fts_updateinfo_curr=&fts_updateinfo_curr_1;
 			break;
 		}
 	}
-	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr.CHIP_ID);
+	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr->CHIP_ID);
 	if(i >= sizeof(fts_updateinfo)/sizeof(struct fts_Upgrade_Info)){
-		memcpy(&fts_updateinfo_curr, &fts_updateinfo[0], sizeof(struct fts_Upgrade_Info));
+//		memcpy(fts_updateinfo_curr, &fts_updateinfo[0], sizeof(struct fts_Upgrade_Info));
 	}
 
-	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr.CHIP_ID);
+	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr->CHIP_ID);
 
 
 }
 
 int main()
 {
-	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr.CHIP_ID);
+	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr->CHIP_ID);
 	fts_get_upgrade_array();
-	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr.CHIP_ID);
+	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr->CHIP_ID);
 
 	fts_updateinfo_curr.CHIP_ID = 0x12;
-	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr.CHIP_ID);
+	printf("%s(%d) chip_id = %x\n", __func__,__LINE__,fts_updateinfo_curr->CHIP_ID);
 	return 0;
 }
 
